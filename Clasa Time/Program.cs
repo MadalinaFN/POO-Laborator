@@ -8,8 +8,19 @@ namespace Clasa_Time
 {
     class Time
     {
-        int ore, minute, secunde, sutimi;
-        public Time(int ore = 0, int minute = 0, int secunde = 0, int sutimi = 0)
+        private int ore, minute, secunde, sutimi;
+        public Time(int ore, int minute)
+        {
+            this.ore = ore;
+            this.minute = minute;
+        }
+        public Time(int ore, int minute, int secunde)
+        {
+            this.ore = ore;
+            this.minute = minute;
+            this.secunde = secunde;
+        }
+        public Time(int ore, int minute, int secunde, int sutimi)
         {
             this.ore = ore;
             this.minute = minute;
@@ -44,42 +55,46 @@ namespace Clasa_Time
             }
             else
             {
-                s.AppendFormat("{0},{1},{2},{3} / ", ore, minute, secunde, sutimi);
+                //s.AppendFormat("{0},{1},{2},{3} / ", ore, minute, secunde, sutimi);
                 s.AppendFormat("{0}:{1}:{2}:{3}", ore, minute, secunde, sutimi);
             }
             return s.ToString();
         }
-        public static int GetSutimiPlus(Time t)
+        public static Time operator +(Time t1, Time t2)
         {
-            int sutimi, sutimi1, sutimi2, sutimi3;
+            Time t = new Time(0, 0, 0, 0);
+            int k;
 
-            sutimi1 = t.ore * 3600000;
-            sutimi2 = t.minute * 60000;
-            sutimi3 = t.secunde * 1000;
+            t.sutimi = (t1.sutimi + t2.sutimi) % 100;
+            k = (t1.sutimi + t2.sutimi) / 100;
 
-            sutimi = sutimi1 + t.sutimi + sutimi2 + sutimi3;
+            t.secunde = (t1.secunde + t2.secunde + k) % 60;
+            k = (t1.secunde + t2.secunde + k) / 60;
 
-            return sutimi;
+            t.minute = (t1.minute + t2.minute + k) % 60;
+            k = (t1.minute + t2.minute + k) / 60;
+
+            t.ore = t1.ore + t2.ore + k;
+
+            return t;
         }
-        public static int GetSutimiMinus(Time t)
+        public static Time operator -(Time t1, Time t2)
         {
-            int sutimi, sutimi1, sutimi2, sutimi3;
+            Time t = new Time(0, 0, 0, 0);
+            int k;
 
-            sutimi1 = t.ore * 3600000;
-            sutimi2 = t.minute * 60000;
-            sutimi3 = t.secunde * 1000;
+            t.ore = t1.ore - t2.ore;
 
-            sutimi = sutimi1 - sutimi2 - sutimi3 - t.sutimi;
+            t.minute = (t1.minute - t2.minute) % 60;
+            k = (t1.minute - t2.minute) / 60;
 
-            return sutimi;
-        }
-        public static int operator +(Time t1, Time t2)
-        {
-            return GetSutimiPlus(t1) + GetSutimiPlus(t2);
-        }
-        public static int operator -(Time t1, Time t2)
-        {
-            return GetSutimiMinus(t1) - GetSutimiMinus(t2);
+            t.secunde = (t1.secunde - t2.secunde + k) % 60;
+            k = (t1.secunde - t2.secunde + k) / 60;
+
+            t.sutimi = (t1.sutimi - t2.sutimi + k) % 100;
+            k = (t1.sutimi - t2.sutimi + k) / 100;
+
+            return t;
         }
         public static bool operator ==(Time t1, Time t2)
         {
@@ -128,13 +143,13 @@ namespace Clasa_Time
     {
         static void Main(string[] args)
         {
-            Time t1 = new Time(10, 15, 50, 80);
-            Time t2 = new Time(8, 30, 17, 15);
+            Time t1 = new Time(10, 30, 25, 75);
+            Time t2 = new Time(47, 50, 40, 60);
 
             Console.WriteLine($"Time1: {t1}");
             Console.WriteLine($"Time2: {t2}");
-            Console.WriteLine($"Adunarea timpurilor este de {t1 + t2} sutimi");
-            Console.WriteLine($"Scaderea timpurilor este de {t1 - t2} sutimi");
+            Console.WriteLine($"Adunarea timpurilor este {t1 + t2}");
+            Console.WriteLine($"Scaderea timpurilor este {t1 - t2}");
 
             if (t1 == t2)
                 Console.WriteLine("Timpurile sunt la fel");
