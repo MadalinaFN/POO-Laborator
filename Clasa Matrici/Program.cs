@@ -7,6 +7,23 @@ using System.IO;
 
 namespace Clasa_Matrici
 {
+                                    /*****!!!IMPORTANT!!!******/
+    /***** MATRICILE LE-AM PUS INTR-UN FISIER TEXT, SI NU POT PUNE FISIERELE TEXT LA ASSIGNMENT ******/
+    /*CEEA CE CONTINE FISIERUL "MATRICE A" ESTE:
+      4 4
+      1 2 3 4
+      2 4 5 7
+      3 4 5 1
+      5 4 1 2*/
+    /*CEEA CE CONTINE FISIERUL "MATRICE B" ESTE:
+      4 4
+      2 1 1 0
+      2 3 1 2
+      6 4 6 1
+      6 5 3 7*/
+    /***LAS AICI SI LINK-UL MEU DE GITHUB PENTRU DACA DORITI SA RULATI PROGRAMUL SAU SA VEDETI PROGRAMUL CU FISIERELE TEXT: 
+        https://github.com/MadalinaFN/POO-Laborator/tree/master/Clasa%20Matrici ***/
+
     class Matrici
     {
         private int n, m;
