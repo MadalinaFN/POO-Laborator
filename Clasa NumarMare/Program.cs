@@ -9,10 +9,17 @@ namespace Clasa_NumarMare
     class NumarMare
     {
         public int[] numar;
+        public int n;
 
         public NumarMare(int[] n)
         {
             numar = n;
+        }
+
+        public NumarMare(int n)
+        {
+            this.n = n;
+            this.numar = new int[n];
         }
 
         public override string ToString()
@@ -152,8 +159,7 @@ namespace Clasa_NumarMare
             Console.WriteLine($"Suma celor doua numere este: {nr1 + nr2}");
             Console.WriteLine($"Inmultirea celor doua numere este: {nr1 * nr2}");
             Console.WriteLine($"Al {n}-lea termen din sirul lui Fibonacci este: {Fibonacci(n)}");
-            Factorial(factorial);
-            Console.WriteLine();
+            Console.WriteLine($"Valoarea lui {factorial}! este: {Factorial(factorial)}");
         }
 
         public static NumarMare Fibonacci(int n)
@@ -171,38 +177,36 @@ namespace Clasa_NumarMare
             return nrf1;
         }
 
-        static void Factorial(int n)
+        public static NumarMare Factorial(int factorial)
         {
-            int[] rez = new int[5000];
-            rez[0] = 1;
-            int rs = 1;
+            NumarMare rez = new NumarMare(5000);
+            int rs = 1, t = 0, aux;
+            rez.numar[0] = 1;
 
-            for (int i = 2; i <= n; i++)
-                rs = inm(i, rez, rs);
-
-            Console.WriteLine("Valoarea lui 1000! este:");
-            for (int i = rs - 1; i >= 0; i--)
-                Console.Write(rez[i]);
-        }
-        static int inm(int n, int[] r, int rs)
-        {
-            int carr = 0, p;
-
-            for (int i = 0; i < rs; i++)
+            for (int i = 2; i <= factorial; i++)
             {
-                p = r[i] * n + carr;
-                r[i] = p % 10;
-                carr = p / 10;
+                for (int j = 0; j < rs; j++)
+                {
+                    aux = rez.numar[j] * i + t;
+                    rez.numar[j] = aux % 10;
+                    t = aux / 10;
+                }
+                while (t != 0)
+                {
+                    rez.numar[rs] = t % 10;
+                    rs++;
+                    t = t / 10;
+                }
             }
 
-            while (carr != 0)
-            {
-                r[rs] = carr % 10;
-                carr = carr / 10;
-                rs++;
-            }
+            NumarMare x = new NumarMare(rs);
 
-            return rs;
+            for (int i = 0; i < x.numar.Length; i++)
+                x.numar[i] = rez.numar[i];
+
+            Array.Reverse(x.numar);
+
+            return x;
         }
     }
 }
