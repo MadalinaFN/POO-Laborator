@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Clasa_Matrici
 {
-                                    /*****!!!IMPORTANT!!!******/
+    /*****!!!IMPORTANT!!!******/
     /***** MATRICILE LE-AM PUS INTR-UN FISIER TEXT, SI NU POT PUNE FISIERELE TEXT LA ASSIGNMENT ******/
     /*CEEA CE CONTINE FISIERUL "MATRICE A" ESTE:
       4 4
