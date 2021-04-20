@@ -30,7 +30,7 @@ namespace Clasa_Elev
                 suma = suma + nota;
             }
 
-            medie = suma / nrnote;
+            medie = (int)Math.Round((double)suma / nrnote, MidpointRounding.ToEven);
         }
 
         public string NumeSiPrenume { get { return nume + " " + prenume; } private set { } }
